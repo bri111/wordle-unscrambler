@@ -1,184 +1,458 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+:root {
+  --wu-green: #538d4e;
+  --wu-green-light: #6aaa64;
+  --wu-yellow: #b59f3b;
+  --wu-yellow-light: #c9b458;
+  --wu-gray: #3a3a3c;
+  --wu-gray-light: #818384;
+  --wu-bg: #121213;
+  --wu-surface: #1a1a1b;
+  --wu-border: #3a3a3c;
+  --wu-text: #ffffff;
+  --wu-text-muted: #818384;
+  --wu-tile-border: #3a3a3c;
+  --wu-tile-filled-border: #565758;
 }
 
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
+.wu-app {
+  font-family: 'Figtree', 'Segoe UI', sans-serif;
+  background: var(--wu-bg);
+  color: var(--wu-text);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  align-items: center;
+  padding: 0 1rem 3rem;
 }
 
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
+/* Header */
+.wu-header {
   width: 100%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0 12px;
+  border-bottom: 1px solid var(--wu-border);
+  margin-bottom: 20px;
+  position: relative;
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+.wu-header h1 {
+  font-size: 1.7rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+}
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+.wu-mode-badge {
+  position: absolute;
+  right: 0;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  color: var(--wu-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: none;
+  border: 1px solid var(--wu-border);
+  border-radius: 4px;
+  padding: 3px 8px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.wu-mode-badge:hover {
+  border-color: var(--wu-gray-light);
+  color: var(--wu-text);
+}
+
+/* Legend */
+.wu-legend {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 16px;
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  color: var(--wu-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.wu-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.wu-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.wu-dot-green  { background: var(--wu-green-light); }
+.wu-dot-yellow { background: var(--wu-yellow-light); }
+.wu-dot-gray   { background: var(--wu-gray); border: 1px solid var(--wu-gray-light); }
+
+/* Hint */
+.wu-hint {
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  color: var(--wu-text-muted);
+  margin-bottom: 10px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  height: 16px;
+}
+
+/* Tile Grid */
+.wu-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 62px);
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.wu-tile {
+  width: 62px;
+  height: 62px;
+  border: 2px solid var(--wu-tile-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  background: var(--wu-bg);
+  transition: border-color 0.1s;
+  user-select: none;
+}
+
+.wu-tile--filled {
+  border-color: var(--wu-tile-filled-border);
+  animation: wu-pop 0.1s ease;
+}
+
+.wu-tile--active {
+  border-color: var(--wu-gray-light);
+}
+
+.wu-tile--correct {
+  background: var(--wu-green);
+  border-color: var(--wu-green);
+  color: #fff;
+}
+
+.wu-tile--present {
+  background: var(--wu-yellow);
+  border-color: var(--wu-yellow);
+  color: #fff;
+}
+
+.wu-tile--absent {
+  background: var(--wu-gray);
+  border-color: var(--wu-gray);
+  color: #fff;
+}
+
+@keyframes wu-pop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* Excluded row */
+.wu-excluded-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.wu-excluded-label {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: var(--wu-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.wu-excluded-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.wu-excluded-pill {
+  background: var(--wu-gray);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.wu-excluded-pill:hover {
+  background: #555;
+  transform: scale(0.95);
+}
+
+/* Search button */
+.wu-search-btn {
+  background: var(--wu-green);
+  color: #fff;
+  border: none;
+  padding: 14px 40px;
+  font-size: 1rem;
+  font-weight: 900;
+  font-family: 'Figtree', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  margin-bottom: 20px;
+}
+
+.wu-search-btn:hover  { background: var(--wu-green-light); }
+.wu-search-btn:active { transform: scale(0.97); }
+
+/* Results */
+.wu-results-area {
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 4px;
+}
+
+.wu-results-header {
+  font-size: 11px;
+  font-family: 'DM Mono', monospace;
+  color: var(--wu-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
+}
+
+.wu-results-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  max-height: 200px;
+  overflow-y: auto;
+  padding-bottom: 4px;
+}
+
+.wu-results-grid::-webkit-scrollbar { width: 4px; }
+.wu-results-grid::-webkit-scrollbar-track { background: transparent; }
+.wu-results-grid::-webkit-scrollbar-thumb { background: var(--wu-border); border-radius: 2px; }
+
+.wu-result-word {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'DM Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 12px;
+  border: 1px solid var(--wu-border);
+  border-radius: 4px;
+  background: var(--wu-surface);
+  cursor: default;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.wu-result-word:hover {
+  background: #2a2a2b;
+  border-color: var(--wu-gray-light);
+}
+
+.wu-result-more {
+  color: var(--wu-text-muted);
+}
+
+.wu-no-results {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--wu-text-muted);
+}
+
+/* Divider & clear */
+.wu-divider {
+  width: 100%;
+  max-width: 380px;
+  border: none;
+  border-top: 1px solid var(--wu-border);
+  margin: 16px 0;
+}
+
+.wu-clear-btn {
+  background: none;
+  border: 1px solid var(--wu-border);
+  color: var(--wu-text-muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  margin-bottom: 16px;
+}
+
+.wu-clear-btn:hover {
+  border-color: var(--wu-gray-light);
+  color: var(--wu-text);
+}
+
+/* Keyboard */
+.wu-keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wu-key-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.wu-key {
+  height: 58px;
+  min-width: 43px;
+  padding: 0 6px;
+  background: var(--wu-gray-light);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Figtree', sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  user-select: none;
+  transition: background 0.15s, transform 0.08s;
+}
+
+.wu-key:active      { transform: scale(0.93); }
+.wu-key--wide       { min-width: 65px; font-size: 12px; letter-spacing: 0.04em; }
+.wu-key--correct    { background: var(--wu-green); }
+.wu-key--present    { background: var(--wu-yellow); }
+.wu-key--absent     { background: #1a1a1b; color: var(--wu-text-muted); border: 1px solid var(--wu-border); }
+
+/* ── Mode toggle row ────────────────────────────────────────────────────────
+   The row containing the "Exclude Letters Mode" toggle button and clear count */
+.wu-mode-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+/* The main toggle button — neutral state (tile mode) */
+.wu-mode-toggle-btn {
+  background: none;
+  border: 1px solid var(--wu-border);
+  color: var(--wu-text-muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.wu-mode-toggle-btn:hover {
+  border-color: var(--wu-gray-light);
+  color: var(--wu-text);
+}
+
+/* Active state — exclude mode is ON. Turns gray/dark to signal a different mode */
+.wu-mode-toggle-btn--active {
+  background: var(--wu-gray);
+  border-color: var(--wu-gray-light);
+  color: #fff;
+}
+
+.wu-mode-toggle-btn--active:hover {
+  background: #555;
+}
+
+/* Small "Clear (N)" button next to the toggle */
+.wu-exclude-clear-btn {
+  background: none;
+  border: 1px solid var(--wu-border);
+  color: var(--wu-text-muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.wu-exclude-clear-btn:hover {
+  border-color: var(--wu-gray-light);
+  color: var(--wu-text);
+}
+
+/* ── Keyboard exclude mode ──────────────────────────────────────────────────
+   When the keyboard is in exclude mode, add a subtle colored border around
+   the whole keyboard so the user always knows which mode they're in */
+.wu-keyboard--exclude-mode {
+  border: 1px solid var(--wu-gray);
+  border-radius: 8px;
+  padding: 12px 8px;
+  position: relative;
+}
+
+/* Small label in the corner of the keyboard showing the current mode */
+.wu-keyboard--exclude-mode::before {
+  content: 'EXCLUDE MODE';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--wu-text-muted);
+  background: var(--wu-bg);
+  padding: 0 8px;
+}
+
+/* A key that is currently toggled ON in exclude mode — dark with a gray border */
+.wu-key--excluded-active {
+  background: var(--wu-gray);
+  color: #fff;
+  border: 2px solid var(--wu-gray-light);
 }
