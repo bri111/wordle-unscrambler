@@ -7,6 +7,6 @@ export default defineConfig({
   plugins: [
     react(),
     babel({ presets: [reactCompilerPreset()] })
-  ],
-  base: '/my-app/'
+  ]
+  // base: '/my-app/'
 })
