@@ -78,6 +78,8 @@
   color: var(--wu-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .wu-legend-item {
@@ -91,6 +93,7 @@
   height: 12px;
   border-radius: 2px;
   display: inline-block;
+  flex-shrink: 0;
 }
 
 .wu-dot-green  { background: var(--wu-green-light); }
@@ -106,7 +109,8 @@
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  height: 16px;
+  min-height: 16px;
+  padding: 0 8px;
 }
 
 /* Tile Grid */
@@ -132,6 +136,7 @@
   background: var(--wu-bg);
   transition: border-color 0.1s;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .wu-tile--filled {
@@ -167,6 +172,74 @@
   100% { transform: scale(1); }
 }
 
+/* ── Keyboard toggle row ── */
+.wu-keyboard-toggle-row {
+  margin-bottom: 12px;
+}
+
+.wu-kbd-toggle-btn {
+  background: none;
+  border: 1px solid var(--wu-border);
+  color: var(--wu-text-muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wu-kbd-toggle-btn:hover {
+  border-color: var(--wu-gray-light);
+  color: var(--wu-text);
+}
+
+.wu-kbd-toggle-btn--active {
+  background: var(--wu-surface);
+  border-color: var(--wu-green);
+  color: var(--wu-green-light);
+}
+
+/* Hidden native input — invisible but focusable */
+.wu-native-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+  top: 0;
+  left: 0;
+}
+
+/* Tap to type prompt shown when native keyboard is active */
+.wu-native-prompt {
+  margin-top: 12px;
+  background: var(--wu-surface);
+  border: 1px dashed var(--wu-border);
+  color: var(--wu-text-muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 14px 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s;
+  width: 100%;
+  max-width: 340px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.wu-native-prompt:hover,
+.wu-native-prompt:focus {
+  border-color: var(--wu-gray-light);
+  color: var(--wu-text);
+  outline: none;
+}
+
 /* Excluded row */
 .wu-excluded-row {
   display: flex;
@@ -175,6 +248,7 @@
   margin-bottom: 16px;
   width: 100%;
   max-width: 380px;
+  flex-wrap: wrap;
 }
 
 .wu-excluded-label {
@@ -207,6 +281,7 @@
   text-transform: uppercase;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .wu-excluded-pill:hover {
@@ -229,6 +304,9 @@
   cursor: pointer;
   transition: background 0.15s, transform 0.1s;
   margin-bottom: 20px;
+  width: 100%;
+  max-width: 340px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .wu-search-btn:hover  { background: var(--wu-green-light); }
@@ -284,9 +362,7 @@
   border-color: var(--wu-gray-light);
 }
 
-.wu-result-more {
-  color: var(--wu-text-muted);
-}
+.wu-result-more { color: var(--wu-text-muted); }
 
 .wu-no-results {
   font-family: 'DM Mono', monospace;
@@ -316,6 +392,7 @@
   cursor: pointer;
   transition: border-color 0.15s, color 0.15s;
   margin-bottom: 16px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .wu-clear-btn:hover {
@@ -328,18 +405,22 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .wu-key-row {
   display: flex;
-  gap: 6px;
+  gap: 5px;
   justify-content: center;
 }
 
 .wu-key {
   height: 58px;
   min-width: 43px;
-  padding: 0 6px;
+  flex: 1;
+  max-width: 43px;
+  padding: 0 4px;
   background: var(--wu-gray-light);
   color: #fff;
   border: none;
@@ -355,24 +436,26 @@
   letter-spacing: 0.02em;
   user-select: none;
   transition: background 0.15s, transform 0.08s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .wu-key:active      { transform: scale(0.93); }
-.wu-key--wide       { min-width: 65px; font-size: 12px; letter-spacing: 0.04em; }
+.wu-key--wide       { min-width: 58px; max-width: 58px; font-size: 11px; letter-spacing: 0.03em; flex: 1.4; }
 .wu-key--correct    { background: var(--wu-green); }
 .wu-key--present    { background: var(--wu-yellow); }
 .wu-key--absent     { background: #1a1a1b; color: var(--wu-text-muted); border: 1px solid var(--wu-border); }
 
-/* ── Mode toggle row ────────────────────────────────────────────────────────
-   The row containing the "Exclude Letters Mode" toggle button and clear count */
+/* Mode toggle row */
 .wu-mode-toggle-row {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-/* The main toggle button — neutral state (tile mode) */
 .wu-mode-toggle-btn {
   background: none;
   border: 1px solid var(--wu-border);
@@ -386,6 +469,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .wu-mode-toggle-btn:hover {
@@ -393,18 +477,14 @@
   color: var(--wu-text);
 }
 
-/* Active state — exclude mode is ON. Turns gray/dark to signal a different mode */
 .wu-mode-toggle-btn--active {
   background: var(--wu-gray);
   border-color: var(--wu-gray-light);
   color: #fff;
 }
 
-.wu-mode-toggle-btn--active:hover {
-  background: #555;
-}
+.wu-mode-toggle-btn--active:hover { background: #555; }
 
-/* Small "Clear (N)" button next to the toggle */
 .wu-exclude-clear-btn {
   background: none;
   border: 1px solid var(--wu-border);
@@ -417,6 +497,7 @@
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.15s;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .wu-exclude-clear-btn:hover {
@@ -424,9 +505,6 @@
   color: var(--wu-text);
 }
 
-/* ── Keyboard exclude mode ──────────────────────────────────────────────────
-   When the keyboard is in exclude mode, add a subtle colored border around
-   the whole keyboard so the user always knows which mode they're in */
 .wu-keyboard--exclude-mode {
   border: 1px solid var(--wu-gray);
   border-radius: 8px;
@@ -434,7 +512,6 @@
   position: relative;
 }
 
-/* Small label in the corner of the keyboard showing the current mode */
 .wu-keyboard--exclude-mode::before {
   content: 'EXCLUDE MODE';
   position: absolute;
@@ -450,9 +527,102 @@
   padding: 0 8px;
 }
 
-/* A key that is currently toggled ON in exclude mode — dark with a gray border */
 .wu-key--excluded-active {
   background: var(--wu-gray);
   color: #fff;
   border: 2px solid var(--wu-gray-light);
+}
+
+/* ── MOBILE RESPONSIVE ─────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .wu-app {
+    padding: 0 0.5rem 5rem; /* extra bottom padding so keyboard doesn't cover content */
+  }
+
+  .wu-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .wu-mode-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+
+  .wu-legend {
+    gap: 10px;
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+
+  /* Smaller tiles on mobile */
+  .wu-tile-grid {
+    grid-template-columns: repeat(5, 54px);
+    gap: 4px;
+    margin-bottom: 14px;
+  }
+
+  .wu-tile {
+    width: 54px;
+    height: 54px;
+    font-size: 1.6rem;
+  }
+
+  /* Smaller keys on mobile — fit full QWERTY row without overflow */
+  .wu-key {
+    height: 50px;
+    min-width: 0;
+    max-width: none;
+    font-size: 12px;
+    border-radius: 3px;
+    gap: 3px;
+  }
+
+  .wu-key-row {
+    gap: 4px;
+    padding: 0 2px;
+  }
+
+  .wu-key--wide {
+    min-width: 0;
+    max-width: none;
+    font-size: 10px;
+  }
+
+  .wu-search-btn {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .wu-mode-toggle-btn,
+  .wu-kbd-toggle-btn {
+    font-size: 10px;
+    padding: 7px 12px;
+  }
+
+  .wu-native-prompt {
+    padding: 12px 24px;
+    font-size: 12px;
+  }
+
+  .wu-results-grid {
+    max-height: 160px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .wu-tile-grid {
+    grid-template-columns: repeat(5, 46px);
+  }
+
+  .wu-tile {
+    width: 46px;
+    height: 46px;
+    font-size: 1.3rem;
+  }
+
+  .wu-key {
+    height: 44px;
+    font-size: 11px;
+  }
 }
