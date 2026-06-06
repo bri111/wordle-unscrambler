@@ -322,7 +322,7 @@ export default function WordleUnscrambler() {
         <div className="wu-excluded-row">
           <span className="wu-excluded-label">Excluded:</span>
           <div className="wu-excluded-pills">
-            {[...excluded].sort().map(l => (
+            {[...excluded]().map(l => (
               <button
                 key={l}
                 className="wu-excluded-pill"
